@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludiflex | Login & Register</title>
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- GOOGLE FONTS -->
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+    <!-- STYLE -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* POPPINS FONT */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* ====== BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff6b6b, #f06595, #fcab64, #ffe66d);
+            background-size: 600% 600%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .form-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .form-container.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 2px solid #ddd;
+            background: #f9f9f9;
+            padding: 10px;
+        }
+
+        .form-header button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 10px;
+            color: #007bff;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        .form-header button.active {
+            color: #0056b3;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container show">
+        <div class="form-header">
+            <button id="login" class="active">Login</button>
+            <button id="register">Register</button>
+        </div>
+        <div class="form-body">
+            <!-- Login Form -->
+            <form class="login-form" action="login.php" method="post">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" name="username" required minlength="1" maxlength="16">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+
+            <!-- Register Form -->
+            <form class="register-form" action="register.php" method="post" enctype="multipart/form-data" style="display: none;">
+                <h2>Register</h2>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required minlength="1" maxlength="16">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required pattern="(?=.\d)(?=.[!@#$%^&])(?=.[a-zA-Z]).{16}" title="Password must contain at least one number, one symbol, and be 16 characters long">
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob">
+                </div>
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <select id="department" name="department">
+                        <option value="marketing">Marketing</option>
+                        <option value="sales">Sales</option>
+                        <option value="finance">Finance</option>
+                        <option value="it">IT</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="file">Upload File:</label>
+                    <input type="file" id="file" name="file">
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+    
+    <script>
+        // Variable Declaration
+        const loginBtn = document.querySelector("#login");
+        const registerBtn = document.querySelector("#register");
+        const loginForm = document.querySelector(".login-form");
+        const registerForm = document.querySelector(".register-form");
+        const formContainer = document.querySelector(".form-container");
+        loginBtn.addEventListener("click", () => {
+            loginForm.style.display = "block";
+            registerForm.style.display = "none";
+            loginBtn.classList.add("active");
+            registerBtn.classList.remove("active");
+            formContainer.classList.add("show");
+        });
+        registerBtn.addEventListener("click", () => {
+            registerForm.style.display = "block";
+            loginForm.style.display = "none";
+            registerBtn.classList.add("active");
+            loginBtn.classList.remove("active");
+            formContainer.classList.add("show");
+        });
+    </script>
+</body>
+</html>
